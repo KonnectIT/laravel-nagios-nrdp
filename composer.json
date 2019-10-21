@@ -1,0 +1,52 @@
+{
+    "name": "konnectit/laravel-nagios-nrdp",
+    "description": "Sending statuses to a Nagios server using the NRDP protocol",
+    "keywords": [
+        "konnectit",
+        "laravel-nagios-nrdp"
+    ],
+    "homepage": "https://github.com/konnectit/laravel-nagios-nrdp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Edwin Heij",
+            "email": "e.heij@konnectit.nl",
+            "homepage": "https://konnectit.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.3",
+        "phpunit/phpunit": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "KonnectIT\\LaravelNagiosNrdp\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KonnectIT\\LaravelNagiosNrdp\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KonnectIT\\LaravelNagiosNrdp\\LaravelNagiosNrdpServiceProvider"
+            ],
+            "aliases": {
+                "NagiosNRDP": "KonnectIT\\LaravelNagiosNrdp\\LaravelNagiosNrdpFacade"
+            }
+        }
+    }
+}
