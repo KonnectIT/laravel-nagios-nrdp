@@ -29,7 +29,7 @@ class AnalyticsServiceProviderTest extends TestCase
         $nagiosNrdp = $this->app['laravel-nagios-nrdp'];
 
         $result = $nagiosNrdp
-            ->state(NagiosNrdp::HOST_DOWN)
+            ->state(0)
             ->send('test');
     }
 }
