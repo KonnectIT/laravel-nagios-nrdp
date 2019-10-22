@@ -19,8 +19,9 @@
         "php": "^7.2"
     },
     "require-dev": {
-        "symfony/var-dumper": "^4.3",
-        "phpunit/phpunit": "^8.2"
+        "orchestra/testbench": "^4.2",
+        "phpunit/phpunit": "^8.2",
+        "symfony/var-dumper": "^4.3"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +46,7 @@
                 "KonnectIT\\LaravelNagiosNrdp\\LaravelNagiosNrdpServiceProvider"
             ],
             "aliases": {
-                "NagiosNRDP": "KonnectIT\\LaravelNagiosNrdp\\LaravelNagiosNrdpFacade"
+                "NagiosNrdp": "KonnectIT\\LaravelNagiosNrdp\\LaravelNagiosNrdpFacade"
             }
         }
     }
