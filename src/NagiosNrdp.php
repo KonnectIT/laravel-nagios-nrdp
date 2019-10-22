@@ -13,14 +13,6 @@ class NagiosNrdp
     protected $type = "host";
     protected $checktype = 1; // Passive check
 
-    const HOST_OK = 0;
-    const HOST_UNREACHABLE = 1;
-    const HOST_DOWN = 2;
-
-    const SERVICE_OK = 0;
-    const SERVICE_WARNING = 1;
-    const SERVICE_ERROR = 2;
-
     /**
      * Create a new Skeleton Instance.
      */
@@ -45,8 +37,10 @@ class NagiosNrdp
             $this->type = "service";
         }
 
-        if ($this->parameterVerification()) {
-            throw new \Exception('Not enough parameters to send a NRDP request');
+        try {
+            $this->parameterVerificationFailed();
+        } catch (\Exception $e) {
+            throw $e;
         }
 
         $hostchecks = array();
@@ -353,9 +347,23 @@ class NagiosNrdp
     /**
      * @return bool
      */
-    protected function parameterVerification(): bool
+    protected function parameterVerificationFailed(): bool
     {
-        return $this->url == "" || $this->token == "" || $this->host == "" || $this->state == "" || $this->message == "";
+        if (empty($this->url)) {
+            throw new \Exception('Nagios URL is not set');
+        }
+        if (empty($this->token)) {
+            throw new \Exception('Nagios token is not set');
+        }
+        if (empty($this->host)) {
+            throw new \Exception('Nagios host is not set');
+        }
+        if (empty($this->state)) {
+            throw new \Exception('Nagios state is not set');
+        }
+        if (empty($this->message)) {
+            throw new \Exception('Nagios message is not set');
+        }
     }
 
 }
