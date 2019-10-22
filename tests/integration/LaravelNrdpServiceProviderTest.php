@@ -2,7 +2,7 @@
 
 namespace KonnectIT\LaravelNagiosNrdp\Tests\Integration;
 
-use KonnectIT\LaravelNagiosNrdp\LaravelNagiosNrdp;
+use KonnectIT\LaravelNagiosNrdp\NagiosNrdp;
 
 class AnalyticsServiceProviderTest extends TestCase
 {
@@ -13,7 +13,7 @@ class AnalyticsServiceProviderTest extends TestCase
     {
         $nagiosNrdp = $this->app['laravel-nagios-nrdp'];
 
-        $this->assertInstanceOf(LaravelNagiosNrdp::class, $nagiosNrdp);
+        $this->assertInstanceOf(NagiosNrdp::class, $nagiosNrdp);
     }
 
     /**
@@ -25,14 +25,11 @@ class AnalyticsServiceProviderTest extends TestCase
         $this->app['config']->set('laravel-nagios-nrdp.host', 'testhost');
         $this->app['config']->set('laravel-nagios-nrdp.token', 'testtoken');
 
-        /** @var LaravelNagiosNrdp $nagiosNrdp */
+        /** @var NagiosNrdp $nagiosNrdp */
         $nagiosNrdp = $this->app['laravel-nagios-nrdp'];
 
-        $result = $nagiosNrdp->message('test')
-            ->state(LaravelNagiosNrdp::HOST_DOWN)
-            ->send();
-
-
-
+        $result = $nagiosNrdp
+            ->state(NagiosNrdp::HOST_DOWN)
+            ->send('test');
     }
 }

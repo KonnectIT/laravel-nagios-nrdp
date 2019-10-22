@@ -5,7 +5,7 @@ namespace KonnectIT\LaravelNagiosNrdp;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \KonnectIT\LaravelNagiosNrdp\LaravelNagiosNrdp
+ * @see \KonnectIT\LaravelNagiosNrdp\NagiosNrdp
  */
 class LaravelNagiosNrdpFacade extends Facade
 {

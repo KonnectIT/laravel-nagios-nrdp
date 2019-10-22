@@ -2,7 +2,7 @@
 
 namespace KonnectIT\LaravelNagiosNrdp;
 
-class LaravelNagiosNrdp
+class NagiosNrdp
 {
     protected $url = "";
     protected $token = "";
@@ -324,9 +324,9 @@ class LaravelNagiosNrdp
 
     /**
      * @param string $type host/service
-     * @return LaravelNagiosNrdp
+     * @return NagiosNrdp
      */
-    public function setType(string $type): LaravelNagiosNrdp
+    public function setType(string $type): NagiosNrdp
     {
         $this->type = $type;
         return $this;
@@ -334,9 +334,9 @@ class LaravelNagiosNrdp
 
     /**
      * @param int $state
-     * @return LaravelNagiosNrdp
+     * @return NagiosNrdp
      */
-    public function state(int $state): LaravelNagiosNrdp
+    public function state(int $state): NagiosNrdp
     {
         $this->state = $state;
         return $this;
