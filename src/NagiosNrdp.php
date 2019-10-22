@@ -4,13 +4,28 @@ namespace KonnectIT\LaravelNagiosNrdp;
 
 class NagiosNrdp
 {
+    /** @var string $host */
     protected $url = "";
+
+    /** @var string $token */
     protected $token = "";
+
+    /** @var string $host */
     protected $host = "";
+
+    /** @var string $service */
     protected $service = "";
-    protected $state = "";
+
+    /** @var int $state */
+    protected $state = 0; // OK (service) / UP (host)
+
+    /** @var string $message */
     protected $message = "";
+
+    /** @var string $type */
     protected $type = "host";
+
+    /** @var int $checktype */
     protected $checktype = 1; // Passive check
 
     /**
@@ -23,6 +38,38 @@ class NagiosNrdp
         $this->token = config('laravel-nagios-nrdp.token');
     }
 
+    /**
+     * @param int $state
+     * @return NagiosNrdp
+     */
+    public function state(int $state): NagiosNrdp
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return NagiosNrdp
+     */
+    public function host(): NagiosNrdp
+    {
+        $this->type = 'host';
+
+        return $this;
+    }
+
+    /**
+     * @param string $service
+     * @return NagiosNrdp
+     */
+    public function service($service = ''): NagiosNrdp
+    {
+        $this->service = $service;
+        $this->type = 'service';
+
+        return $this;
+    }
 
     /**
      * @param string $message
@@ -37,11 +84,7 @@ class NagiosNrdp
             $this->type = "service";
         }
 
-        try {
-            $this->parameterVerificationFailed();
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this->parameterVerification();
 
         $hostchecks = array();
         $servicechecks = array();
@@ -309,45 +352,9 @@ class NagiosNrdp
     }
 
     /**
-     * @return string
+     * @throws Exception
      */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type host/service
-     * @return NagiosNrdp
-     */
-    public function setType(string $type): NagiosNrdp
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @param int $state
-     * @return NagiosNrdp
-     */
-    public function state(int $state): NagiosNrdp
-    {
-        $this->state = $state;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getState(): int
-    {
-        return $this->state;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function parameterVerificationFailed(): bool
+    protected function parameterVerification()
     {
         if (empty($this->url)) {
             throw new \Exception('Nagios URL is not set');
@@ -358,8 +365,8 @@ class NagiosNrdp
         if (empty($this->host)) {
             throw new \Exception('Nagios host is not set');
         }
-        if (empty($this->state)) {
-            throw new \Exception('Nagios state is not set');
+        if (!is_numeric($this->state)) {
+            throw new \Exception('Nagios state is not numeric');
         }
         if (empty($this->message)) {
             throw new \Exception('Nagios message is not set');
