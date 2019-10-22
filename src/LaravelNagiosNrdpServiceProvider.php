@@ -33,6 +33,13 @@ class LaravelNagiosNrdpServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-nagios-nrdp.php', 'laravel-nagios-nrdp');
 
-        $this->app->alias(LaravelNagiosNrdp::class, 'laravel-nagios-nrdp');
+        $this->app->bind(LaravelNagiosNrdp::class, function () {
+//            $analyticsConfig = config('analytics');
+//            $this->guardAgainstInvalidConfiguration($analyticsConfig);
+//            $client = app(AnalyticsClient::class);
+            return new LaravelNagiosNrdp();
+        });
+
+        $this->app->alias('NagiosNrdp', 'laravel-nagios-nrdp');
     }
 }
