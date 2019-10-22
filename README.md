@@ -16,8 +16,18 @@ composer require konnectit/laravel-nagios-nrdp
 
 ## Usage
 
+### Host check
 ```php
+use KonnectIT\LaravelNagiosNrdp\HostStates;
 
+\NagiosNrdp::state(HostStates::HOST_OK)->send('OK');
+```
+
+### Service check
+```php
+use KonnectIT\LaravelNagiosNrdp\ServiceStates;
+
+\NagiosNrdp::service('PHP extensions')->state(ServiceStates::SERVICE_OK)->send('All services OK');
 ```
 
 ### Testing
